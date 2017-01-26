@@ -1,0 +1,176 @@
+
+\documentclass[10pt]{article}
+\usepackage{graphicx, amsmath, gensymb, siunitx}
+\addtolength{\oddsidemargin}{-.875in}
+	\addtolength{\evensidemargin}{-.875in}
+	\addtolength{\textwidth}{1.75in}
+
+	\addtolength{\topmargin}{-.875in}
+	\addtolength{\textheight}{1.75in}
+\renewcommand{\baselinestretch}{0.97}
+\title{ELL715 : Assignment 1}
+\author {Deepali Gupta, 2013MT60079}
+
+\begin{document}
+
+\maketitle
+All questions use the following original image:
+\begin{center}
+\includegraphics{image.jpg}\\Original Image
+\end{center}
+\section{Answer 1}
+(Code in q1.m)\\
+\begin{center}
+\includegraphics{imagegray.jpg}\\256 scale 100x100 grayscale image
+\end{center}
+
+\subsection{Adding Gaussian Noise}
+\begin{center}
+\includegraphics{q1.jpg}\\Images after applying noise with SNR 0, 10, 20, 30dB respectively
+\end{center}
+
+\subsection{Applying Smoothing Operation}
+
+\begin{table}[h!]
+\centering
+  
+   \begin{tabular}{|p{4cm}|p{3cm}|}
+  \hline
+  No of images used & Mean Square Error\\
+  \hline
+  5 & 0.0013\\
+  \hline
+  10 &  6.8139e-04\\
+  \hline
+  15 & 4.9275e-04\\
+  \hline
+  \end{tabular}
+\end{table}
+
+\begin{center}
+\includegraphics{q1_average.jpg}\\After smoothing operation using 5, 10, 15 images respectively
+\end{center}
+
+\section{Answer 2}
+(Code in q2.m)\\
+\subsection{Applying 2D affine transform}
+The following matrices were sequentially multiplied to the transformed image.
+\begin{itemize}
+\item Resizing :\\
+\[
+A=
+  \begin{bmatrix}
+    3 & 0 & 0 \\
+    0 & 3 & 0 \\
+    0 & 0 & 1
+  \end{bmatrix}
+\]
+\item Resizing :\\
+\[
+B=
+  \begin{bmatrix}
+    1 & 0 & 0 \\
+    0 & 1 & 0 \\
+    6 & 7 & 1
+  \end{bmatrix}
+\]
+\item Resizing :\\
+\[
+C=
+  \begin{bmatrix}
+    cos(r) & sin(r) & 0\\
+    -sin(r) & cos(r) & 0\\
+    0 & 0 & 1
+  \end{bmatrix}
+\]
+\item
+Final Transformation Matrix :\\
+\[
+M=
+  \begin{bmatrix}
+    0.7784 & -1.9315 & 0\\
+    2.8973 & 0.5189 & 0\\
+    18 & 14 & 1
+  \end{bmatrix}
+\]
+\end{itemize}
+\begin{center}
+\includegraphics{q2.jpg}\\Original, Enlarged, Translated, Rotated(final) operations applied successively
+\end{center}
+
+\section{Answer 3}
+(Code in q3.m)\\
+\subsection{Bilinear Interpolation}
+Suppose that we want to find the value of the unknown function $f$ at the point $(x, y)$. It is assumed that we know the value of $f$ at the four points $Q_{11} = (x_1, y_1), Q_{12} = (x_1, y_2), Q_{21} = (x_2, y_1), and Q_{22} = (x_2, y_2)$.
+\begin{center}
+\includegraphics[width=18cm]{bilinear.png}\\
+\end{center}
+
+\subsection{Bicubic Interpolation}
+Suppose the function values $f$ and the derivatives $f_{x}$, $f_y$ and $f_{xy}$ are known at the four corners $(0,0), (1,0), (0,1), and (1,1)$ of the unit square. The interpolated surface can then be written
+\begin{center}
+\includegraphics{bicubic1.png}\\
+\end{center}
+The interpolation problem consists of determining the 16 coefficients $a_{ij}$. Matching $p(x,y)$ with the function values yields four equations,
+\begin{center}
+\includegraphics{bicubic2.png}\\
+\end{center}
+Likewise, eight equations for the derivatives in the x-direction and the y-direction
+\begin{center}
+\includegraphics{bicubic3.png}\\
+\end{center}
+And four equations for the cross derivative $xy$.
+\begin{center}
+\includegraphics{bicubic4.png}\\
+\end{center}
+where the expressions above have used the following identities,
+\begin{center}
+\includegraphics{bicubic5.png}\\
+\end{center}
+This procedure yields a surface $p(x,y)$ on the unit square $[0,1] \times [0,1]$ which is continuous and with continuous derivatives. Bicubic interpolation on an arbitrarily sized regular grid can then be accomplished by patching together such bicubic surfaces, ensuring that the derivatives match on the boundaries.
+
+Results after enlarging 2.6 times along rows, 1.7 times along columns and rotating \ang{33.5} clockwise:
+\begin{center}
+\includegraphics{3_lin_orig.jpg}\\Original Image
+\end{center}
+\begin{center}
+\includegraphics{3_lin_chnge.jpg}\\Bilinear Interpolation
+\end{center}
+\begin{center}
+\includegraphics{3_cubic_change.jpg}\\Bicubic Interpolation
+\end{center}
+\section{Asnwer 4}
+(Code in q4.m)\\
+Histogram of the original image plotted using MATLAB Code:
+\begin{center}
+\includegraphics{histo.jpg}\\Histogram
+\end{center}
+\begin{center}
+\includegraphics{4orig.jpg}\\Original 16-level Image
+\end{center}
+\begin{center}
+\includegraphics{4_equal.jpg}\\Image after histogram equalisation
+\end{center}
+\begin{center}
+\includegraphics{4_8_15.jpg}\\Image with histogram uniform from 8 to 15 only
+\end{center}
+
+\begin{table}[h!]
+\centering
+  
+   \begin{tabular}{|p{4cm}|p{3cm}|p{3cm}|}
+  \hline
+  Image & Mean & Standard Deviation\\
+  \hline
+  Original & 9.4348 & 4.0113\\
+  \hline
+  Histogram Equalised & 8.3135 & 4.4275\\
+  \hline
+  Histogram Uniform(8-15) & 11.1217 & 3.3515\\
+  \hline
+  \end{tabular}
+\end{table}
+
+\end{document}
+
+\grid

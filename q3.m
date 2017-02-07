@@ -1,0 +1,15 @@
+obj = VideoReader('videoplayback1.mp4');
+first_frame = read(obj, 200);
+sec_frame = read(obj, 201);
+figure;
+subplot(2,2,1);
+imshow(first_frame);
+title('First frame');
+subplot(2,2,2);
+imhist(rgb2gray(first_frame));
+title('Histogram');
+subplot(2,2,3);
+imshow(sec_frame);
+title('Second Frame');
+subplot(2,2,4);
+imhist(rgb2gray(sec_frame-first_frame));

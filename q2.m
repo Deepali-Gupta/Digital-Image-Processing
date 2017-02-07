@@ -5,12 +5,7 @@ J=double(I)/256;
 % grayscale image
 G=rgb2gray(J);
 H=rgb2gray(I);
-%% Edge detection
-BW1=edge(H,'log'); % laplacian filter
-BW2=edge(H,'log'); % laplacian filter with diagonal terms
-BW3=edge(H,'Roberts'); % Robert's cross gradient operator
-BW4=edge(H,'Sobel'); % Sobel's operator
-BW5=edge(H,'log'); % high boost filtering
+% Edge detection
 
 %% Laplacian filter
 %Preallocate the matrices with zeros
@@ -40,6 +35,27 @@ I1=uint8(I1);
 I2=uint8(I2);
 BW1=I1;
 BW2=I2;
+%% Gradient Operators
+BW3=edge(H,'Roberts'); % Robert's cross gradient operator
+BW4=edge(H,'Sobel'); % Sobel's operator
+
+%% High Boost Filtering
+[r c]=size(H);
+A=1.5;
+for j=1:r
+    for i=1:c
+        pixel_value=H(i,j);
+        if(pixel_value<0)
+            h8_lap_mask=[0 -1 0;-1 A+4 -1;0 -1 0];
+            B=imfilter(H,h8_lap_mask);
+        end
+        if(pixel_value>=0)
+            h8_lap_mask2=[-1 -1 -1;-1 A+8 -1;-1 -1 -1];
+            B=imfilter(H,h8_lap_mask2);
+        end
+    end
+end
+BW5=B;
 %% plot all the filters
 figure
 subplot(2,3,1)

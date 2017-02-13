@@ -1,0 +1,53 @@
+% make video object
+obj = VideoReader('videoplayback1.mp4');
+% extract frames
+f11 = read(obj, 200);
+f12 = read(obj, 201);
+f21 = read(obj, 300);
+f22 = read(obj, 301);
+f31 = read(obj, 400);
+f32 = read(obj, 401);
+% interpolate between consecutive frames
+inter1 = (f11+f12)/2;
+inter2 = (f21+f22)/2;
+inter3 = (f31+f32)/2;
+% plot snapshots
+figure;
+subplot(4,2,1);
+imshow(f11);
+title('First frame');
+subplot(4,2,2);
+imshow(f12);
+title('Second frame');
+subplot(4,2,3);
+imshow(f11-f12);
+title('Difference at t=100');
+subplot(4,2,4);
+imshow(inter1);
+title('Interpolated image');
+figure;
+subplot(4,2,1);
+imshow(f21);
+title('First frame');
+subplot(4,2,2);
+imshow(f22);
+title('Second frame');
+subplot(4,2,3);
+imshow(f21-f22);
+title('Difference at t=200');
+subplot(4,2,4);
+imshow(inter2);
+title('Interpolated image');
+figure;
+subplot(4,2,1);
+imshow(f31);
+title('First frame');
+subplot(4,2,2);
+imshow(f32);
+title('Second frame');
+subplot(4,2,3);
+imshow(f31-f32);
+title('Difference at t=300');
+subplot(4,2,4);
+imshow(inter3);
+title('Interpolated image');
